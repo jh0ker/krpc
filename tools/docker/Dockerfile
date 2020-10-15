@@ -38,12 +38,9 @@ RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 \
     rm -rf /var/lib/apt/lists/*
 
 # Set up KSP libs
+COPY ksp-${ksp_version}.tar.gz /usr/local/lib/ksp-${ksp_version}/ksp-${ksp_version}.tar.gz
 WORKDIR /usr/local/lib/ksp-${ksp_version}
-RUN apt-get update && \
-    apt-get install -y wget && \
-    rm -rf /var/lib/apt/lists/* && \
-    wget https://s3.amazonaws.com/krpc/lib/ksp-${ksp_version}.tar.gz && \
-    tar -xf ksp-${ksp_version}.tar.gz && \
+RUN tar -xf ksp-${ksp_version}.tar.gz && \
     ln -s /usr/local/lib/ksp-${ksp_version} /usr/local/lib/ksp && \
     rm /usr/local/lib/ksp-${ksp_version}/ksp-${ksp_version}.tar.gz
 
